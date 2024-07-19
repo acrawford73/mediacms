@@ -2,6 +2,7 @@ import glob
 import json
 import logging
 import os
+from os.path import splitext
 import random
 import re
 import tempfile
@@ -140,7 +141,7 @@ class Media(models.Model):
 
     edit_date = models.DateTimeField(auto_now=True)
 
-    enable_comments = models.BooleanField(default=True, help_text="Whether comments will be allowed for this media")
+    enable_comments = models.BooleanField(default=False, help_text="Whether comments will be allowed for this media")
 
     encoding_status = models.CharField(max_length=20, choices=MEDIA_ENCODING_STATUS, default="pending", db_index=True)
 
@@ -162,7 +163,7 @@ class Media(models.Model):
 
     license = models.ForeignKey("License", on_delete=models.CASCADE, db_index=True, blank=True, null=True)
 
-    likes = models.IntegerField(db_index=True, default=1)
+    likes = models.IntegerField(db_index=True, default=0)
 
     listable = models.BooleanField(default=False, help_text="Whether it will appear on listings")
 
@@ -283,7 +284,7 @@ class Media(models.Model):
 
     video_height = models.IntegerField(default=1)
 
-    views = models.IntegerField(db_index=True, default=1)
+    views = models.IntegerField(db_index=True, default=0)
 
     # keep track if media file has changed, on saves
     __original_media_file = None
@@ -315,6 +316,7 @@ class Media(models.Model):
     def save(self, *args, **kwargs):
         if not self.title:
             self.title = self.media_file.path.split("/")[-1]
+            self.title = splitext(self.title)[0]
 
         strip_text_items = ["title", "description"]
         for item in strip_text_items:
