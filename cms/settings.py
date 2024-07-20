@@ -393,8 +393,8 @@ DATABASES = {
         "NAME": "mediacms",
         "HOST": "127.0.0.1",
         "PORT": "5432",
-        "USER": "",
-        "PASSWORD": "",
+        "USER": "mediacms",
+        "PASSWORD": "mediacms",
     }
 }
 
