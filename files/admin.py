@@ -9,6 +9,7 @@ from .models import (
     Media,
     Subtitle,
     Tag,
+    Playlist,
 )
 
 
@@ -93,6 +94,14 @@ class EncodingAdmin(admin.ModelAdmin):
 
     has_file.short_description = "Has file"
 
+class PlaylistAdmin(admin.ModelAdmin):
+    search_fields = ["title"]
+    list_display = ["title"]
+    list_filter = ["user"]
+    readonly_fields = ["uid", "friendly_token", "add_date"]
+    ordering = ("-add_date",)
+
+
 
 admin.site.register(EncodeProfile, EncodeProfileAdmin)
 admin.site.register(Comment, CommentAdmin)
@@ -102,3 +111,4 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Subtitle, SubtitleAdmin)
 admin.site.register(Language, LanguageAdmin)
+admin.site.register(Playlist, PlaylistAdmin)
