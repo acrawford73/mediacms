@@ -697,7 +697,15 @@ def get_base_ffmpeg_command(
     return cmd
 
 
-def produce_ffmpeg_commands(media_file, media_info, resolution, codec, output_filename, pass_file, chunk=False):
+def produce_ffmpeg_commands(
+    media_file, 
+    media_info, 
+    resolution, 
+    codec, 
+    output_filename, 
+    pass_file, 
+    chunk=False
+):
     try:
         media_info = json.loads(media_info)
     except BaseException:

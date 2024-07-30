@@ -165,6 +165,7 @@ Media becomes private if it gets reported %s times\n
             d["msg"] = msg
             d["to"] = settings.ADMIN_EMAIL_LIST
             notify_items.append(d)
+            
         if settings.USERS_NOTIFICATIONS.get("MEDIA_REPORTED", False):
             title = "[{}] - Media was reported".format(settings.PORTAL_NAME)
             d = {}
